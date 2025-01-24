@@ -15,7 +15,7 @@ The provided scripts allow for an easy workflow to convert between these formats
 
 ## Installation
 1. Clone or download this repository into a new Git repository
-2. Ensure Python 3.x is installed
+2. Ensure Python 3.x and Quarto are installed
 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
