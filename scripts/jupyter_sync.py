@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import jupytext
 import subprocess
 
@@ -13,51 +14,48 @@ def run_git_command(command, cwd=None):
 
 
 def sync_notebook_folders():
-    source_folder = '../src'
-    notebook_folder = '../notebooks'
+    script_dir = Path(__file__).resolve().parent
+    source_folder = script_dir.parent / 'src'
+    notebook_folder = script_dir.parent / 'notebooks'
 
-    os.makedirs(source_folder, exist_ok=True)
-    os.makedirs(notebook_folder, exist_ok=True)
+    source_folder.mkdir(parents=True, exist_ok=True)
+    notebook_folder.mkdir(parents=True, exist_ok=True)
 
-    source_files = set(os.path.splitext(f)[0] for f in os.listdir(source_folder) if f.endswith('.py'))
-    notebook_files = set(os.path.splitext(f)[0] for f in os.listdir(notebook_folder) if f.endswith('.ipynb'))
+    source_files = {f.stem for f in source_folder.glob('*.py')}
+    notebook_files = {f.stem for f in notebook_folder.glob('*.ipynb')}
 
     to_convert = source_files.symmetric_difference(notebook_files)
-
     for filename in to_convert:
-        source_path = os.path.join(source_folder, filename + '.py')
-        notebook_path = os.path.join(notebook_folder, filename + '.ipynb')
+        source_path = source_folder / f'{filename}.py'
+        notebook_path = notebook_folder / f'{filename}.ipynb'
 
-        if os.path.exists(source_path) and not os.path.exists(notebook_path):
-            notebook = jupytext.read(source_path)
-            jupytext.write(notebook, notebook_path)
+        if source_path.exists() and not notebook_path.exists():
+            notebook = jupytext.read(str(source_path))
+            jupytext.write(notebook, str(notebook_path))
             print(f"Created notebook: {notebook_path}")
 
-
-        if os.path.exists(notebook_path) and not os.path.exists(source_path):
-            notebook = jupytext.read(notebook_path)
-            jupytext.write(notebook, source_path)
+        if notebook_path.exists() and not source_path.exists():
+            notebook = jupytext.read(str(notebook_path))
+            jupytext.write(notebook, str(source_path))
             print(f"Created source file: {source_path}")
-
-            run_git_command(['git', 'add', source_path])
+            run_git_command(['git', 'add', str(source_path)])
 
     for filename in source_files.intersection(notebook_files):
-        source_path = os.path.join(source_folder, filename + '.py')
-        notebook_path = os.path.join(notebook_folder, filename + '.ipynb')
+        source_path = source_folder / f'{filename}.py'
+        notebook_path = notebook_folder / f'{filename}.ipynb'
 
-        source_mtime = os.path.getmtime(source_path)
-        notebook_mtime = os.path.getmtime(notebook_path)
+        source_mtime = source_path.stat().st_mtime
+        notebook_mtime = notebook_path.stat().st_mtime
 
         if source_mtime > notebook_mtime:
-            notebook = jupytext.read(source_path)
-            jupytext.write(notebook, notebook_path)
+            notebook = jupytext.read(str(source_path))
+            jupytext.write(notebook, str(notebook_path))
             print(f"Updated notebook: {notebook_path}")
-
         elif notebook_mtime > source_mtime:
-            notebook = jupytext.read(notebook_path)
-            jupytext.write(notebook, source_path)
+            notebook = jupytext.read(str(notebook_path))
+            jupytext.write(notebook, str(source_path))
             print(f"Updated source file: {source_path}")
-            run_git_command(['git', 'add', source_path])
+            run_git_command(['git', 'add', str(source_path)])
 
 
 if __name__ == '__main__':

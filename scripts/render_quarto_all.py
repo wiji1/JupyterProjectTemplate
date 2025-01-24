@@ -3,15 +3,16 @@ import subprocess
 from pathlib import Path
 
 
-def render_notebooks(notebook_dir='../notebooks'):
-    notebook_dir = Path(notebook_dir)
+def render_notebooks(notebook_dir=None):
+    script_dir = Path(__file__).resolve().parent
+    notebook_dir = (script_dir.parent / 'notebooks').resolve() if notebook_dir is None else Path(notebook_dir).resolve()
 
     if not notebook_dir.is_dir():
         print(f"Error: Directory '{notebook_dir}' not found!")
         return
 
-    output_dir = Path('../html')
-    output_dir.mkdir(exist_ok=True)
+    output_dir = (script_dir.parent / 'html').resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     notebook_files = list(notebook_dir.glob('*.ipynb')) + list(notebook_dir.glob('*.qmd'))
 
@@ -24,7 +25,7 @@ def render_notebooks(notebook_dir='../notebooks'):
             temp_output = input_path.with_suffix('.html')
             final_output = output_dir / temp_output.name
 
-            result = subprocess.run(
+            subprocess.run(
                 [
                     "quarto", "render", str(input_path),
                     "--to", "html",
