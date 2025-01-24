@@ -14,8 +14,8 @@ The provided scripts allow for an easy workflow to convert between these formats
 - `scripts/`: Utility scripts
 
 ## Installation
-1. Clone the repository
-2. Create a virtual environment
+1. Clone or download this repository into a new Git repository
+2. Ensure Python 3.x is installed
 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
