@@ -61,7 +61,7 @@ def render_and_open(notebook_name):
 if __name__ == "__main__":
     if len(sys.argv) <= 1:
         print("Error: No file specified!")
-        print("Usage: python render_and_open.py <notebook_file>")
+        print("Usage: python scripts/render_quarto_single.py <notebook_file>")
         sys.exit(1)
 
     notebook_name = sys.argv[1]
