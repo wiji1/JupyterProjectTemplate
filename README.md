@@ -45,6 +45,11 @@ Render all notebooks in the `notebooks/` directory:
 python scripts/render_quarto_all.py
 ```
 
+## Run Configurations
+This repository includes a `.vscode/` directory with run configurations for Visual Studio Code. <br>
+It also contains a `.idea/` directory with run configurations for PyCharm or other JetBrains IDEs. <br> <br>
+These configurations allow for easy execution of the provided scripts.
+
 ## Requirements
 - Python 3.x
 - Jupytext
