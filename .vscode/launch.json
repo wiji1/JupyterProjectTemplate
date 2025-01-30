@@ -33,16 +33,16 @@
         "name": "Quarto Render",
         "type": "python",
         "request": "launch",
-        "program": "${workspaceFolder}/scripts/render_quarto_single.py",  // Path to your script
+        "program": "${workspaceFolder}/scripts/render_quarto_single.py",
         "console": "integratedTerminal",
         "env": {
           "PYTHONUNBUFFERED": "1"
         },
-        "pythonPath": "python3",  // Adjust if needed
-        "envFile": "${workspaceFolder}/.env",  // Optional, if you have an .env file
+        "pythonPath": "python3",
+        "envFile": "${workspaceFolder}/.env",
         "cwd": "${workspaceFolder}",
         "args": [
-          "${file}"  // This will pass the current open file's relative path to the script
+          "${file}"
         ]
       }
     ]
