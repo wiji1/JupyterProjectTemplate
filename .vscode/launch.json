@@ -1,0 +1,50 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Jupyter Sync",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/scripts/jupyter_sync.py",
+        "console": "integratedTerminal",
+        "env": {
+          "PYTHONUNBUFFERED": "1"
+        },
+        "pythonPath": "python3",
+        "envFile": "${workspaceFolder}/.env",
+        "cwd": "${workspaceFolder}",
+        "args": []
+      },
+      {
+        "name": "Quarto Render All",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/scripts/render_quarto_all.py",
+        "console": "integratedTerminal",
+        "env": {
+          "PYTHONUNBUFFERED": "1"
+        },
+        "pythonPath": "python3",
+        "envFile": "${workspaceFolder}/.env",
+        "cwd": "${workspaceFolder}",
+        "args": []
+      },
+      {
+        "name": "Quarto Render",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/scripts/render_quarto_single.py",  // Path to your script
+        "console": "integratedTerminal",
+        "env": {
+          "PYTHONUNBUFFERED": "1"
+        },
+        "pythonPath": "python3",  // Adjust if needed
+        "envFile": "${workspaceFolder}/.env",  // Optional, if you have an .env file
+        "cwd": "${workspaceFolder}",
+        "args": [
+          "${file}"  // This will pass the current open file's relative path to the script
+        ]
+      }
+    ]
+  }
+  

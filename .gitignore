@@ -2,6 +2,9 @@
 !.idea/runConfigurations/
 !.idea/runConfigurations/*.xml
 
+.vscode/*
+!.vscode/launch.json
+
 .venv/
 
 /html/*
@@ -9,3 +12,5 @@
 
 /notebooks/*
 !/notebooks/.gitkeep
+
+.DS_Store
