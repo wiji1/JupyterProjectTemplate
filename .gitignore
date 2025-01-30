@@ -1,8 +1,11 @@
-.idea
-.venv
+.idea/*
+!.idea/runConfigurations/
+!.idea/runConfigurations/*.xml
 
-/html
+.venv/
+
+/html/*
 !/html/.gitkeep
 
-/notebooks
+/notebooks/*
 !/notebooks/.gitkeep
